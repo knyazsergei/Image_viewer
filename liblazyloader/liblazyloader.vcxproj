@@ -137,6 +137,7 @@
     <ClInclude Include="GdiPlus.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageCollection.h" />
+    <ClInclude Include="ImageController.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="LLException.h" />
     <ClInclude Include="stdafx.h" />
@@ -146,6 +147,7 @@
     <ClCompile Include="GdiPlus.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageCollection.cpp" />
+    <ClCompile Include="ImageController.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="LLException.cpp" />
     <ClCompile Include="stdafx.cpp">
