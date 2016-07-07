@@ -2,130 +2,93 @@
 #include "ImageController.h"
 
 
-lload::CImageController::CImageController(std::wstring const& path)
+lload::CImageController::CImageController()
 {
-	ReadFileList(path);
+	m_imageLoader = std::make_unique<CImageLoader>(L"./images/");
+	m_imageLoader->SetImagePageSize(m_pageSize);
+
+	m_collections.push_back({});
+	m_imageLoader->Load(m_collections.back(), 0);
+	m_currentCollection = m_collections.begin();
 }
 
-lload::CImageController::~CImageController()
+bool lload::CImageController::NeedUpdate()
 {
+	return m_needUpdate;
 }
-
-void lload::CImageController::SetImagePageSize(size_t size)
-{
-	m_imagePageSize = size;
-}
-
-size_t lload::CImageController::GetImagePageSize() const
-{
-	return m_imagePageSize;
-}
-
 
 void lload::CImageController::NextPage()
 {
-	if (m_collections.size() == 0)
-	{
-		return;
-	}
-
 	if (m_currentCollectionIndex == m_collections.size() - 1)
 	{
 		m_currentCollectionIndex = 0;
-		m_currentCollection = begin(m_collections);
+		m_currentCollection = std::begin(m_collections);
 	}
-	else
+	else if(m_collections.size() != 0)
 	{
 		m_currentCollectionIndex++;
 		m_currentCollection++;
 	}
-	Load(Diraction::right);
+
+	UpdateCollections(false);
 }
 
 void lload::CImageController::PrevPage()
 {
-	if(m_collections.size() == 0)
-	{
-		return;
-	}
-
 	if (m_currentCollectionIndex == 0)
 	{
-		m_currentCollectionIndex = m_collections.size() - 1;
-		m_currentCollection = end(m_collections);
+		if (m_collections.size() != 0)
+		{
+			m_currentCollectionIndex = m_collections.size() - 1;
+		}
+		m_currentCollection = std::end(m_collections);
 	}
 	else
 	{
 		m_currentCollectionIndex--;
 		m_currentCollection--;
 	}
-	Load(Diraction::left);
-}
-
-void lload::CImageController::Load(Diraction dir)
-{
-	switch (dir)
-	{
-	case lload::CImageController::Diraction::left:
-		break;
-	case lload::CImageController::Diraction::right:
-		break;
-	default:
-		break;
-	}
-}
-
-void lload::CImageController::Load(size_t startIndex)
-{
-	if(m_files.size() == 0)
-	{
-		return;
-	}
-	if (startIndex >= m_files.size())
-	{
-		throw std::out_of_range("The index exceeds the upper limit");
-	}
-
-	//Build range
-	auto endIndex = startIndex + m_imagePageSize;
-	if (endIndex >= m_files.size())
-	{
-		endIndex = endIndex - m_files.size() + startIndex;
-	}
-
-	m_collections.push_back({ begin(m_files) + startIndex, begin(m_files) + endIndex });
 	
-	//Remove old collections
-	if (m_collections.size() > MAXIMUM_COLLECTIONS_NUMBER)
-	{
-		if (m_currentCollectionIndex > ceil(m_collections.size() % 2))
-		{
-			m_collections.pop_front();
-		}
-		else
-		{
-			m_collections.pop_front();
-		}
-	}
+	UpdateCollections(true);
 }
 
-void lload::CImageController::ReadFileList(std::wstring path)
+lload::CImageCollection & lload::CImageController::GetPage()
 {
-	path += '*';
-	m_files.clear();
+	return *m_currentCollection;
+}
 
-	WIN32_FIND_DATA file_data;
-	HANDLE h_file = FindFirstFile(path.c_str(), &file_data);
-	if (h_file != INVALID_HANDLE_VALUE)
+void lload::CImageController::UpdateCollections(bool left)
+{
+	if (left)
 	{
-		do
+		if (m_currentCollectionIndex > 0)
 		{
-			if (!(file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			m_collections.push_front({});
+			m_imageLoader->Load(m_collections.front(), (m_currentCollectionIndex - 1) * m_pageSize);
+			if (m_collections.size() > 3)
 			{
-				m_files.push_back(file_data.cFileName);
+				m_collections.pop_back();
 			}
-
-		} while (FindNextFile(h_file, &file_data));
-		FindClose(h_file);
+			else if (m_collections.size() == 1)
+			{
+				m_currentCollection = m_collections.begin();
+			}
+		}
+	}
+	else
+	{
+		if (m_currentCollectionIndex * m_pageSize < m_imageLoader->GetFileNumber())
+		{
+			m_collections.push_back({});
+			m_imageLoader->Load(m_collections.back(), (m_currentCollectionIndex + 1) * m_pageSize);
+			if (m_collections.size() > 3)
+			{
+				m_collections.pop_front();
+			}
+			else if (m_collections.size() == 1)
+			{
+				m_currentCollection = m_collections.begin();
+			}
+		}
 	}
 }

@@ -31,8 +31,7 @@ void lload::CImageLoader::Load(CImageCollection & collection, size_t startIndex)
 		throw std::out_of_range("The index exceeds the upper limit");
 	}
 
-	//Build range
-	auto endIndex = startIndex + m_pageSize;
+	size_t endIndex = startIndex + m_pageSize;
 	if (endIndex > m_files.size())
 	{
 		endIndex = m_files.size();
@@ -50,6 +49,11 @@ void lload::CImageLoader::ChangePath(const std::wstring & path)
 	ReadFileList();
 }
 
+size_t lload::CImageLoader::GetFileNumber()
+{
+	return m_files.size();
+}
+
 void lload::CImageLoader::ReadFileList()
 {
 	auto path = m_path;
@@ -58,16 +62,36 @@ void lload::CImageLoader::ReadFileList()
 
 	WIN32_FIND_DATA file_data;
 	HANDLE h_file = FindFirstFile(path.c_str(), &file_data);
-	if (h_file != INVALID_HANDLE_VALUE)
+	if (h_file == INVALID_HANDLE_VALUE)
 	{
-		do
-		{
-			if (!(file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				m_files.push_back(file_data.cFileName);
-			}
-
-		} while (FindNextFile(h_file, &file_data));
-		FindClose(h_file);
+		return;
 	}
+	do
+	{
+		auto fileName = std::wstring(file_data.cFileName);
+		auto extention = fileName.substr(fileName.find_last_of(L".") + 1);
+		auto isImageExtention = [](const std::wstring & ext)->bool {
+			if  ((ext == L"jpeg")||
+				(ext == L"jpg")||
+				(ext == L"png")||
+				(ext == L"bmp")||
+				(ext == L"gif"))
+			{
+				return true;
+			}
+			return false;
+		};
+		if (!(file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && isImageExtention(extention))
+		{
+			Gdiplus::Bitmap image((m_path + fileName).c_str());
+			//auto name = std::string(std::begin(file_data.cFileName), std::end(file_data.cFileName));
+			auto status = image.GetLastStatus();
+			if (status == Gdiplus::Status::Ok)
+			{
+				m_files.push_back(fileName);
+			}
+		}
+	} while (FindNextFile(h_file, &file_data));
+	FindClose(h_file);
+	
 }

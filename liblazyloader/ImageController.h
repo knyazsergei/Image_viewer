@@ -1,44 +1,36 @@
 #pragma once
 #include <list>
-#include <map>
 #include <iterator>
+#include "ImageLoader.h"
 #include "ImageCollection.h"
 #include "GdiPlus.h"
 
 namespace lload
 {
-	class CImageController
-	{
-		enum class Diraction
-		{
-			left,
-			right
-		};
-	public:
-		CImageController(std::wstring const& path);
-		~CImageController();
-		
-		void SetImagePageSize(size_t size);
-		size_t GetImagePageSize() const; // return 30;
+class CImageController
+{
+public:
+	CImageController();
+	~CImageController() = default;
 
-		void NextPage();
-		void PrevPage();
-	private:
-		void Load(Diraction dir);
-		void Load(size_t startIndex);
-		void ReadFileList(std::wstring path);
-	private:
-		std::list<CImageCollection> m_collections;
-		std::list<CImageCollection>::iterator m_currentCollection;
-		size_t m_currentCollectionIndex = 0;
+	bool NeedUpdate();
+	
+	void NextPage();
+	void PrevPage();
 
-		CGdiPlus m_initGdiPlus;
+	CImageCollection & GetPage();
+private:
+	void UpdateCollections(bool left);
+private:
+	std::list<CImageCollection> m_collections;
+	std::list<CImageCollection>::iterator m_currentCollection;
+	size_t m_currentCollectionIndex = 0;
 
-		size_t m_imagePageSize = 5;
-		size_t m_lastIndex = 0;
 
-		std::vector<std::wstring> m_files;
+	CGdiPlus m_gdiplus;
+	std::unique_ptr<CImageLoader> m_imageLoader;
 
-		const static size_t MAXIMUM_COLLECTIONS_NUMBER = 6;
-	};
+	bool m_needUpdate = true;
+	size_t m_pageSize = 2;
+};
 }

@@ -41,3 +41,13 @@ void lload::CImageCollection::Clear()
 {
 	m_images.clear();
 }
+
+lload::CImage & lload::CImageCollection::operator[](size_t n)
+{
+	return m_images[n];
+}
+
+const lload::CImage & lload::CImageCollection::operator[](size_t n) const
+{
+	return m_images[n];
+}

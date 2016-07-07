@@ -76,6 +76,7 @@ BOOST_AUTO_TEST_CASE(get_image)
 {
 	lload::CImageCollection imageCollection({ L"./images/0.png" });
 	BOOST_CHECK_EQUAL(imageCollection.GetImage(0).GetFileName().c_str(), L"./images/0.png");
+	BOOST_CHECK_EQUAL(imageCollection[0].GetFileName().c_str(), L"./images/0.png");
 }
 
 BOOST_AUTO_TEST_CASE(get_size)
@@ -117,6 +118,7 @@ BOOST_AUTO_TEST_CASE(set_and_get_image_page_size)
 
 BOOST_AUTO_TEST_CASE(load_images_into_own_collection)
 {
+	CGdiPlus init;
 	lload::CImageLoader loader(L"./images/");
 	lload::CImageCollection collection;
 
@@ -135,6 +137,7 @@ BOOST_AUTO_TEST_CASE(load_images_into_own_collection)
 
 BOOST_AUTO_TEST_CASE(change_path)
 {
+	CGdiPlus init;
 	lload::CImageLoader loader(L"./images/");
 	lload::CImageCollection collection;
 	loader.ChangePath(L"./images/icons/");

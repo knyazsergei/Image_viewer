@@ -13,9 +13,13 @@ namespace lload
 		~CImageCollection() = default;
 
 		size_t GetSize() const;
-		CImage const& GetImage(size_t i) const;
+		CImage const & GetImage(size_t i) const;
 		void EmplaceImage(CImage & image);
 		void Clear();
+
+		CImage & operator[](size_t n);
+		const CImage & operator[](size_t n)const;
+
 	private:
 		std::vector<CImage> m_images;
 	};

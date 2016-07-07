@@ -14,6 +14,8 @@ public:
 
 	void Load(CImageCollection & collection, size_t startIndex);
 	void ChangePath(const std::wstring & path);
+
+	size_t GetFileNumber();
 private:
 	void ReadFileList();
 private:
