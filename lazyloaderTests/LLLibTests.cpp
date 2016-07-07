@@ -1,12 +1,14 @@
 #include "stdafx.h"
 
 #include "../liblazyloader/Image.h"
+#include "../liblazyloader/ImageCollection.h"
 #include "../liblazyloader/GdiPlus.h"
+
+
 BOOST_AUTO_TEST_SUITE(Check_class_CImage)
 CGdiPlus gdiInit;
 BOOST_AUTO_TEST_CASE(constructor_wchar)
 {
-	CGdiPlus gdiInit;
 	BOOST_CHECK_NO_THROW(lload::CImage(L"./images/0.png"));
 }
 
@@ -55,6 +57,18 @@ BOOST_AUTO_TEST_CASE(check_get_file_name)
 {
 	lload::CImage image(L"./images/0.png");
 	BOOST_CHECK_EQUAL(image.GetFileName().c_str(), L"./images/0.png");
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+BOOST_AUTO_TEST_SUITE(Check_class_CImageCollection)
+CGdiPlus gdiInit;
+BOOST_AUTO_TEST_CASE(collection_constructor)
+{
+	BOOST_CHECK_NO_THROW(lload::CImageCollection({ L"./images/0.png" }));
+	std::vector<std::wstring> vec({ L"./images/0.png" });
+	BOOST_CHECK_NO_THROW(lload::CImageCollection(vec.begin(), vec.end()));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
