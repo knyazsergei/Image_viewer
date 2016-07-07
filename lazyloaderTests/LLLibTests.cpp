@@ -34,5 +34,26 @@ BOOST_AUTO_TEST_CASE(move_constructor)
 	BOOST_CHECK_EQUAL(move.GetBitmap().GetPixelFormat(), copy.GetBitmap().GetPixelFormat());
 }
 
+BOOST_AUTO_TEST_CASE(check_image_resize)
+{
+	lload::CImage image(L"./images/0.png");
+
+
+	auto width = image.GetBitmap().GetWidth();
+	auto height = image.GetBitmap().GetHeight();
+
+	image.Resize(100);
+	BOOST_CHECK(width != image.GetBitmap().GetWidth());
+	BOOST_CHECK(height != image.GetBitmap().GetHeight());
+
+	image.Resize(100);
+	BOOST_CHECK(200 == image.GetBitmap().GetWidth());
+	BOOST_CHECK(200 == image.GetBitmap().GetHeight());
+
+	image.Resize(300, 400);
+	BOOST_CHECK(300 == image.GetBitmap().GetWidth());
+	BOOST_CHECK(400 == image.GetBitmap().GetHeight());
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
