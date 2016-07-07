@@ -2,6 +2,7 @@
 
 #include "../liblazyloader/Image.h"
 #include "../liblazyloader/ImageCollection.h"
+#include "../liblazyloader/ImageLoader.h"
 #include "../liblazyloader/GdiPlus.h"
 
 
@@ -97,6 +98,18 @@ BOOST_AUTO_TEST_CASE(clear)
 	lload::CImageCollection imageCollection({ L"./images/0.png", L"./images/1.png" });
 	imageCollection.Clear();
 	BOOST_CHECK_EQUAL(imageCollection.GetSize(), 0);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(Check_class_CImageLoader)
+CGdiPlus gdiInit;
+BOOST_AUTO_TEST_CASE(set_and_get_image_page_size)
+{
+	lload::CImageLoader loader(L"");
+	BOOST_CHECK_EQUAL(loader.GetImagePageSize(), 0);
+	loader.SetImagePageSize(30);
+	BOOST_CHECK_EQUAL(loader.GetImagePageSize(), 30);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
