@@ -45,12 +45,23 @@ std::wstring lload::CImage::GetFileName() const
 	return m_imageName;
 }
 
+lload::CImage::~CImage()
+{
+	m_image.reset();
+}
+
+void lload::CImage::Resize(unsigned size)
+{
+	Resize(size, size);
+}
+
 void lload::CImage::Resize(unsigned width, unsigned height)
 {
-	if(m_image == nullptr)
+	if (m_image == nullptr)
 	{
 		return;
 	}
+
 	UINT o_height = m_image->GetHeight();
 	UINT o_width = m_image->GetWidth();
 
@@ -62,7 +73,7 @@ void lload::CImage::Resize(unsigned width, unsigned height)
 	{
 		n_height = static_cast<UINT>(((double)n_width) / ratio);
 	}
-	else 
+	else
 	{
 		n_width = static_cast<UINT>(n_height * ratio);
 	}
@@ -74,14 +85,4 @@ void lload::CImage::Resize(unsigned width, unsigned height)
 
 	graphics.DrawImage(m_image.get(), rect);
 	m_image.swap(newBitmap);
-}
-
-lload::CImage::~CImage()
-{
-	m_image.reset();
-}
-
-void lload::CImage::Resize(unsigned size)
-{
-	Resize(size, size);
 }

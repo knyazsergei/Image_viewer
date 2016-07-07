@@ -47,13 +47,14 @@ BOOST_AUTO_TEST_CASE(check_image_resize)
 	BOOST_CHECK(height != image.GetBitmap().GetHeight());
 
 	image.Resize(100);
-	BOOST_CHECK(200 == image.GetBitmap().GetWidth());
-	BOOST_CHECK(200 == image.GetBitmap().GetHeight());
-
-	image.Resize(300, 400);
-	BOOST_CHECK(300 == image.GetBitmap().GetWidth());
-	BOOST_CHECK(400 == image.GetBitmap().GetHeight());
+	BOOST_CHECK(100 == image.GetBitmap().GetWidth());
+	BOOST_CHECK(100 == image.GetBitmap().GetHeight());
 }
 
+BOOST_AUTO_TEST_CASE(check_get_file_name)
+{
+	lload::CImage image(L"./images/0.png");
+	BOOST_CHECK_EQUAL(image.GetFileName().c_str(), L"./images/0.png");
+}
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -22,3 +22,4 @@
 //project dependencies
 #include <atlbase.h>
 #include <Gdiplus.h>
+#include <iostream>

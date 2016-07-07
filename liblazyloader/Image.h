@@ -14,9 +14,11 @@ public:
 
 	Gdiplus::Bitmap & GetBitmap() const;
 	std::wstring GetFileName() const;
-	void Resize(unsigned width, unsigned height);
 	void Resize(unsigned size);
+
 	~CImage();
+private:
+	void Resize(unsigned width, unsigned height);
 private:
 	std::unique_ptr<Gdiplus::Bitmap> m_image;
 	std::wstring m_imageName;
