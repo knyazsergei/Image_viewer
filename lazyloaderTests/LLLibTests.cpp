@@ -104,12 +104,43 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(Check_class_CImageLoader)
 CGdiPlus gdiInit;
+
 BOOST_AUTO_TEST_CASE(set_and_get_image_page_size)
 {
-	lload::CImageLoader loader(L"");
+	lload::CImageLoader loader(L"./images/");
+	BOOST_CHECK_EQUAL(loader.GetImagePageSize(), 10);
+	loader.SetImagePageSize(0);
 	BOOST_CHECK_EQUAL(loader.GetImagePageSize(), 0);
 	loader.SetImagePageSize(30);
 	BOOST_CHECK_EQUAL(loader.GetImagePageSize(), 30);
+}
+
+BOOST_AUTO_TEST_CASE(load_images_into_own_collection)
+{
+	lload::CImageLoader loader(L"./images/");
+	lload::CImageCollection collection;
+
+	loader.Load(collection, 0);
+	BOOST_CHECK_EQUAL(collection.GetSize(), 8);
+
+	loader.SetImagePageSize(5);
+	collection.Clear();
+	loader.Load(collection, 0);
+	BOOST_CHECK_EQUAL(collection.GetSize(), 5);
+
+	collection.Clear();
+	loader.Load(collection, 2);
+	BOOST_CHECK_EQUAL(collection.GetImage(0).GetFileName().c_str(), L"./images/2.png");
+}
+
+BOOST_AUTO_TEST_CASE(change_path)
+{
+	lload::CImageLoader loader(L"./images/");
+	lload::CImageCollection collection;
+	loader.ChangePath(L"./images/icons/");
+
+	loader.Load(collection, 0);
+	BOOST_CHECK_EQUAL(collection.GetSize(), 2);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

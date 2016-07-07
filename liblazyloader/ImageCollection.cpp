@@ -18,10 +18,6 @@ lload::CImageCollection::CImageCollection(std::vector<std::wstring>::iterator fi
 	}
 }
 
-lload::CImageCollection::~CImageCollection()
-{
-}
-
 size_t lload::CImageCollection::GetSize() const
 {
 	return m_images.size();

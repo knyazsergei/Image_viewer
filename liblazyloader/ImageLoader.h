@@ -6,13 +6,14 @@ namespace lload
 class CImageLoader
 {
 public:
-	CImageLoader(std::wstring const& path);
+	CImageLoader(const std::wstring & path = L"./", size_t pageSize = 10);
 	~CImageLoader() = default;
 
 	size_t GetImagePageSize() const;
 	void SetImagePageSize(size_t size);
 
-	void Load(CImageCollection& images, size_t startIndex);
+	void Load(CImageCollection & collection, size_t startIndex);
+	void ChangePath(const std::wstring & path);
 private:
 	void ReadFileList();
 private:

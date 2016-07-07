@@ -7,9 +7,10 @@ namespace lload
 	class CImageCollection
 	{
 	public:
+		CImageCollection() = default;
 		CImageCollection(std::vector<std::wstring> filesNames);
 		CImageCollection(std::vector<std::wstring>::iterator filesNamesBegin, std::vector<std::wstring>::iterator filesNamesEnd);
-		~CImageCollection();
+		~CImageCollection() = default;
 
 		size_t GetSize() const;
 		CImage const& GetImage(size_t i) const;

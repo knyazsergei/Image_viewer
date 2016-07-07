@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "ImageLoader.h"
+#include "LLException.h"
 
-
-lload::CImageLoader::CImageLoader(const std::wstring & path):
-	m_path(path)
+lload::CImageLoader::CImageLoader(const std::wstring & path, size_t pageSize):
+	m_path(path),
+	m_pageSize(pageSize)
 {
 	ReadFileList();
 }
@@ -18,9 +19,35 @@ void lload::CImageLoader::SetImagePageSize(size_t size)
 	m_pageSize = size;
 }
 
-void lload::CImageLoader::Load(CImageCollection & images, size_t startIndex)
+void lload::CImageLoader::Load(CImageCollection & collection, size_t startIndex)
 {
+	if (m_files.size() == 0)
+	{
+		throw CLLException("The selected directory files are missing");
+	}
 
+	if (startIndex >= m_files.size())
+	{
+		throw std::out_of_range("The index exceeds the upper limit");
+	}
+
+	//Build range
+	auto endIndex = startIndex + m_pageSize;
+	if (endIndex > m_files.size())
+	{
+		endIndex = m_files.size();
+	}
+
+	for (auto it = begin(m_files) + startIndex; it != begin(m_files) + endIndex; ++it)
+	{
+		collection.EmplaceImage(CImage(m_path + (*it)));
+	}
+}
+
+void lload::CImageLoader::ChangePath(const std::wstring & path)
+{
+	m_path = path;
+	ReadFileList();
 }
 
 void lload::CImageLoader::ReadFileList()
