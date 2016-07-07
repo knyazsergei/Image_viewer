@@ -71,4 +71,10 @@ BOOST_AUTO_TEST_CASE(collection_constructor)
 	BOOST_CHECK_NO_THROW(lload::CImageCollection(vec.begin(), vec.end()));
 }
 
+BOOST_AUTO_TEST_CASE(get_image)
+{
+	lload::CImageCollection imageCollection({ L"./images/0.png" });
+	BOOST_CHECK_EQUAL(imageCollection.GetImage(0).GetFileName().c_str(), L"./images/0.png");
+}
+
 BOOST_AUTO_TEST_SUITE_END()
