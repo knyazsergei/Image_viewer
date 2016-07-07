@@ -13,3 +13,6 @@
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
 #include <atlbase.h>
+#include <Gdiplus.h>
+#include <iostream>
+#include <string>

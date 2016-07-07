@@ -11,7 +11,7 @@ lload::CImageLoader::~CImageLoader()
 {
 }
 
-size_t lload::CImageLoader::setImagePageSize(size_t size)
+void lload::CImageLoader::SetImagePageSize(size_t size)
 {
 	m_imagePageSize = size;
 }
@@ -39,6 +39,7 @@ void lload::CImageLoader::NextPage()
 		m_currentCollectionIndex++;
 		m_currentCollection++;
 	}
+	Load(Diraction::right);
 }
 
 void lload::CImageLoader::PrevPage()
@@ -58,15 +59,34 @@ void lload::CImageLoader::PrevPage()
 		m_currentCollectionIndex--;
 		m_currentCollection--;
 	}
+	Load(Diraction::left);
+}
+
+void lload::CImageLoader::Load(Diraction dir)
+{
+	switch (dir)
+	{
+	case lload::CImageLoader::Diraction::left:
+		break;
+	case lload::CImageLoader::Diraction::right:
+		break;
+	default:
+		break;
+	}
 }
 
 void lload::CImageLoader::Load(size_t startIndex)
 {
+	if(m_files.size() == 0)
+	{
+		return;
+	}
 	if (startIndex >= m_files.size())
 	{
 		throw std::out_of_range("The index exceeds the upper limit");
 	}
 
+	//Build range
 	auto endIndex = startIndex + m_imagePageSize;
 	if (endIndex >= m_files.size())
 	{
@@ -74,6 +94,8 @@ void lload::CImageLoader::Load(size_t startIndex)
 	}
 
 	m_collections.push_back({ begin(m_files) + startIndex, begin(m_files) + endIndex });
+	
+	//Remove old collections
 	if (m_collections.size() > MAXIMUM_COLLECTIONS_NUMBER)
 	{
 		if (m_currentCollectionIndex > ceil(m_collections.size() % 2))

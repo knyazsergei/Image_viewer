@@ -1,32 +1,41 @@
 #include "stdafx.h"
+#include <guiddef.h>
+#include <atlbase.h>
 #include "Image.h"
-
-
-using namespace Gdiplus;
+#include "LLException.h"
+#include <string>
+#include <memory>
 
 
 lload::CImage::CImage(const std::wstring & fileName):
-	m_imageName(fileName)
+	m_imageName(fileName)	
 {
-	m_image = std::make_unique<Bitmap>(fileName.c_str());
-	GUID guidFileFormat;
 
-	m_image->GetRawFormat(&guidFileFormat);
-	if (guidFileFormat != ImageFormatJPEG &&
-		guidFileFormat != ImageFormatPNG &&
-		guidFileFormat != ImageFormatBMP &&
-		guidFileFormat != ImageFormatTIFF &&
-		guidFileFormat != ImageFormatIcon) 
+	m_image = std::make_unique<Gdiplus::Bitmap>(fileName.c_str());
+
+	if(m_image == nullptr || m_image->GetLastStatus() != Gdiplus::Status::Ok)
 	{
-		throw CLLException("Invalid image format");
+		throw std::runtime_error("Image loading error");
 	}
 }
 
-Bitmap & lload::CImage::GetBitmap() const
+lload::CImage::CImage(CImage && img):
+	m_imageName(img.GetFileName())
+{
+	m_image.swap(img.m_image);
+}
+
+lload::CImage::CImage(const CImage & img) :
+	m_imageName(img.GetFileName())
+{
+	m_image = std::make_unique<Gdiplus::Bitmap>(img.GetBitmap().GetWidth(), img.GetBitmap().GetHeight(), img.GetBitmap().GetPixelFormat());
+}
+
+Gdiplus::Bitmap & lload::CImage::GetBitmap() const
 {
 	if (m_image == nullptr)
 	{
-		throw std::runtime_error("Image is absent")
+		throw std::runtime_error("Image is absent " + std::string(m_imageName.begin(), m_imageName.end()));
 	}
 	return (*m_image.get());
 }
@@ -58,13 +67,18 @@ void lload::CImage::Resize(unsigned width, unsigned height)
 		n_width = static_cast<UINT>(n_height * ratio);
 	}
 
-	Rect rect(0, 0, n_width, n_height);
+	Gdiplus::Rect rect(0, 0, n_width, n_height);
 	auto newBitmap = std::make_unique<Gdiplus::Bitmap>(n_width, n_height, m_image->GetPixelFormat());
-	Graphics graphics(newBitmap.get());
-	graphics.Clear(Color::White);
+	Gdiplus::Graphics graphics(newBitmap.get());
+	graphics.Clear(Gdiplus::Color::White);
 
 	graphics.DrawImage(m_image.get(), rect);
 	m_image.swap(newBitmap);
+}
+
+lload::CImage::~CImage()
+{
+	m_image.reset();
 }
 
 void lload::CImage::Resize(unsigned size)

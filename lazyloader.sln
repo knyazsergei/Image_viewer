@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lazyloader", "lazyloader\lazyloader.vcxproj", "{681298AC-E8DD-452A-9E07-D9960A80AA82}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5A23A30D-D81F-4CBF-A41E-060FBE309110} = {5A23A30D-D81F-4CBF-A41E-060FBE309110}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblazyloader", "liblazyloader\liblazyloader.vcxproj", "{5A23A30D-D81F-4CBF-A41E-060FBE309110}"
 EndProject

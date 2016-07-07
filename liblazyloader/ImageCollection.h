@@ -12,10 +12,8 @@ namespace lload
 		~CImageCollection();
 
 		size_t Size() const;
-		CImage const& GetImage(size_t i) const;
+		//CImage const& GetImage(size_t i) const;
 
-	private:
-		void GdiInit();
 	private:
 		std::vector<CImage> m_images;
 
