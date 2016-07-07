@@ -77,4 +77,10 @@ BOOST_AUTO_TEST_CASE(get_image)
 	BOOST_CHECK_EQUAL(imageCollection.GetImage(0).GetFileName().c_str(), L"./images/0.png");
 }
 
+BOOST_AUTO_TEST_CASE(get_size)
+{
+	lload::CImageCollection imageCollection({ L"./images/0.png" });
+	BOOST_CHECK_EQUAL(imageCollection.GetSize(), 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

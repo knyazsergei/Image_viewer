@@ -11,7 +11,7 @@ namespace lload
 		CImageCollection(std::vector<std::wstring>::iterator filesNamesBegin, std::vector<std::wstring>::iterator filesNamesEnd);
 		~CImageCollection();
 
-		size_t Size() const;
+		size_t GetSize() const;
 		CImage const& GetImage(size_t i) const;
 
 	private:

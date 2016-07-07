@@ -22,7 +22,7 @@ lload::CImageCollection::~CImageCollection()
 {
 }
 
-size_t lload::CImageCollection::Size() const
+size_t lload::CImageCollection::GetSize() const
 {
 	return m_images.size();
 }
