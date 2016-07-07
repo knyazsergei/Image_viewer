@@ -23,7 +23,15 @@ BOOST_AUTO_TEST_CASE(copy_constructor)
 
 BOOST_AUTO_TEST_CASE(move_constructor)
 {
-	BOOST_CHECK_NO_THROW(lload::CImage move(lload::CImage(L"./images/0.png")));
+	lload::CImage original(L"./images/0.png");
+	lload::CImage copy(original);
+
+	lload::CImage move(std::move(original));
+
+	BOOST_CHECK_EQUAL(move.GetFileName().c_str(), copy.GetFileName().c_str());
+	BOOST_CHECK_EQUAL(move.GetBitmap().GetWidth(), copy.GetBitmap().GetWidth());
+	BOOST_CHECK_EQUAL(move.GetBitmap().GetHeight(), copy.GetBitmap().GetWidth());
+	BOOST_CHECK_EQUAL(move.GetBitmap().GetPixelFormat(), copy.GetBitmap().GetPixelFormat());
 }
 
 

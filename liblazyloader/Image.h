@@ -11,6 +11,7 @@ public:
 	CImage(const CImage & img);
 	CImage(CImage && img);
 	CImage(const std::wstring & fileName);
+
 	Gdiplus::Bitmap & GetBitmap() const;
 	std::wstring GetFileName() const;
 	void Resize(unsigned width, unsigned height);
