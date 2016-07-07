@@ -35,3 +35,13 @@ lload::CImage const& lload::CImageCollection::GetImage(size_t i) const
 	}
 	return m_images[i];
 }
+
+void lload::CImageCollection::EmplaceImage(CImage & image)
+{
+	m_images.push_back(std::move(image));
+}
+
+void lload::CImageCollection::Clear()
+{
+	m_images.clear();
+}

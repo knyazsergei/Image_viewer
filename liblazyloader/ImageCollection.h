@@ -13,6 +13,8 @@ namespace lload
 
 		size_t GetSize() const;
 		CImage const& GetImage(size_t i) const;
+		void EmplaceImage(CImage & image);
+		void Clear();
 	private:
 		std::vector<CImage> m_images;
 	};

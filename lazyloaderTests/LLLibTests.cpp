@@ -83,4 +83,20 @@ BOOST_AUTO_TEST_CASE(get_size)
 	BOOST_CHECK_EQUAL(imageCollection.GetSize(), 1);
 }
 
+BOOST_AUTO_TEST_CASE(Emplace_image)
+{
+	lload::CImageCollection imageCollection({ L"./images/0.png" });
+	lload::CImage img(L"./images/1.png");
+	imageCollection.EmplaceImage(img);
+	BOOST_CHECK_EQUAL(imageCollection.GetSize(), 2);
+	BOOST_CHECK_EQUAL(imageCollection.GetImage(1).GetFileName().c_str(), L"./images/1.png");
+}
+
+BOOST_AUTO_TEST_CASE(clear)
+{
+	lload::CImageCollection imageCollection({ L"./images/0.png", L"./images/1.png" });
+	imageCollection.Clear();
+	BOOST_CHECK_EQUAL(imageCollection.GetSize(), 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
