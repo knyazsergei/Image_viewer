@@ -20,9 +20,9 @@ lload::CImage::CImage(const std::wstring & fileName):
 }
 
 lload::CImage::CImage(CImage && img):
-	m_imageName(img.GetFileName())
+	m_imageName(img.GetFileName()),
+	m_image(std::move(img.m_image))
 {
-	m_image.swap(img.m_image);
 }
 
 lload::CImage::CImage(const CImage & img) :

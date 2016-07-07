@@ -18,5 +18,13 @@ BOOST_AUTO_TEST_CASE(copy_constructor)
 	BOOST_CHECK_EQUAL(original.GetBitmap().GetWidth(), copy.GetBitmap().GetWidth());
 	BOOST_CHECK_EQUAL(original.GetBitmap().GetHeight(), copy.GetBitmap().GetWidth());
 	BOOST_CHECK_EQUAL(original.GetBitmap().GetPixelFormat(), copy.GetBitmap().GetPixelFormat());
+	BOOST_CHECK(std::addressof(original.GetBitmap()) != std::addressof(copy.GetBitmap()));
 }
+
+BOOST_AUTO_TEST_CASE(move_constructor)
+{
+	BOOST_CHECK_NO_THROW(lload::CImage move(lload::CImage(L"./images/0.png")));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
