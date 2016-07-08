@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CGdiPlus">
+    <Position X="3" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GdiPlus.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CLLException">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LLException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lload::CImage">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAAQAAAAAAAAAAAAAAAAAAAQAAACAAAAAAAAAEAQAA=</HashCode>
+      <FileName>Image.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lload::CImageCollection">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAACAQAAAAAAQAAEAIAAAAAAAAABAIAA=</HashCode>
+      <FileName>ImageCollection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lload::CImageController">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAIAAAAAAAAABAAAABAAAAAAARAAQAQAAEoAAEBAA=</HashCode>
+      <FileName>ImageController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lload::CImageLoader">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhgAgAACAAAAAAIAAAAAAAAABAAAAAAIAIAAAMAA=</HashCode>
+      <FileName>ImageLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
