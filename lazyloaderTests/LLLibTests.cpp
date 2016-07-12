@@ -5,6 +5,7 @@
 
 BOOST_AUTO_TEST_SUITE(Check_class_CImage)
 CGdiPlus gdiInit;
+
 BOOST_AUTO_TEST_CASE(constructor)
 {
 	BOOST_CHECK_NO_THROW(lload::CImage(L"./images/0.png"));

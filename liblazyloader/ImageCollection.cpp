@@ -19,12 +19,12 @@ lload::IImage const & lload::CImageCollection::GetImage(size_t i) const
 
 void lload::CImageCollection::AddFront(IImage && image)
 {
-	m_images.emplace_front(image);
+	m_images.emplace_front(std::move(image));
 }
 
 void lload::CImageCollection::AddBack(IImage && image)
 {
-	m_images.emplace_back(image);
+	m_images.emplace_back(std::move(image));
 }
 
 void lload::CImageCollection::PopBack()
