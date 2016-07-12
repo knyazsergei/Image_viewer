@@ -6,12 +6,13 @@
 
 int main()
 {
-	lload::CImageController control;
+	lload::CImageController control({});
 	std::string command;
 	while (command != "quit")
 	{
 		std::cout << control.GetPage().GetSize() << std::endl;
 		auto & images = control.GetPage();
+		/*
 		for (size_t i = 0; i < images.GetSize(); ++i)
 		{
 			auto & image = images[i];
@@ -31,6 +32,7 @@ int main()
 		{
 			control.NextPage();
 		}
+		*/
 	}
     return 0;
 }

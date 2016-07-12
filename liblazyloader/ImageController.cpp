@@ -34,7 +34,7 @@ void lload::CImageController::UpdateScrollPosition(size_t position)
 			m_currentCollection.AddFront(CImage(m_files[m_fileFramePosition]));
 			if (m_currentCollection.GetSize() > 10)
 			{
-				m_currentCollection.PopFront();
+				m_currentCollection.PopBack();
 			}
 		}
 	}
