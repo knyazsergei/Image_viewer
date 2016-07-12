@@ -178,6 +178,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collection_tests.cpp" />
     <ClCompile Include="lazyloaderTests.cpp" />
     <ClCompile Include="LLLibTests.cpp" />
     <ClCompile Include="stdafx.cpp">
