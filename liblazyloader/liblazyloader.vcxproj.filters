@@ -16,6 +16,9 @@
     <Filter Include="Image">
       <UniqueIdentifier>{f3272e9c-ce0e-45da-a0f3-1db07bf5a123}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Image\interface">
+      <UniqueIdentifier>{01ac6f64-c60c-49c5-92d4-43f7d6791b5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -25,9 +28,6 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="ImageCollection.h">
@@ -42,15 +42,15 @@
     <ClInclude Include="ImageController.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ImageLoader.h">
-      <Filter>Заголовочные файлы</Filter>
+    <ClInclude Include="Image.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="IImage.h">
+      <Filter>Image\interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="ImageCollection.cpp">
@@ -65,8 +65,11 @@
     <ClCompile Include="ImageController.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ImageLoader.cpp">
-      <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="Image.cpp">
+      <Filter>Image</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

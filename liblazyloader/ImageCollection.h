@@ -1,26 +1,30 @@
 #pragma once
 #include "Image.h"
-#include <vector>
+#include <deque>
 
 namespace lload
 {
-	class CImageCollection
-	{
-	public:
-		CImageCollection() = default;
-		CImageCollection(std::vector<std::wstring> filesNames);
-		CImageCollection(std::vector<std::wstring>::iterator filesNamesBegin, std::vector<std::wstring>::iterator filesNamesEnd);
-		~CImageCollection() = default;
+class CImageCollection
+{
+public:
+	CImageCollection() = default;
+	~CImageCollection() = default;
 
-		size_t GetSize() const;
-		CImage const & GetImage(size_t i) const;
-		void EmplaceImage(CImage & image);
-		void Clear();
+	size_t GetSize() const;
+	IImage const & GetImage(size_t i) const;
 
-		CImage & operator[](size_t n);
-		const CImage & operator[](size_t n)const;
+	void AddFront(IImage && image);
+	void AddBack(IImage && image);
 
-	private:
-		std::vector<CImage> m_images;
-	};
+	void PopBack();
+	void PopFront();
+
+	void Clear();
+
+	IImage & operator[](size_t n);
+	const IImage & operator[](size_t n)const;
+
+private:
+	std::deque<IImage> m_images;
+};
 }

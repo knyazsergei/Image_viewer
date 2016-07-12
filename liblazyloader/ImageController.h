@@ -1,7 +1,6 @@
 #pragma once
-#include <list>
+#include <vector>
 #include <iterator>
-#include "ImageLoader.h"
 #include "ImageCollection.h"
 #include "GdiPlus.h"
 
@@ -10,27 +9,22 @@ namespace lload
 class CImageController
 {
 public:
-	CImageController();
+	CImageController(std::vector<std::wstring> && files );
 	~CImageController() = default;
 
 	bool NeedUpdate();
 	
-	void NextPage();
-	void PrevPage();
+	void UpdateScrollPosition(size_t position);
 
 	CImageCollection & GetPage();
 private:
-	void UpdateCollections(bool left);
-private:
-	std::list<CImageCollection> m_collections;
-	std::list<CImageCollection>::iterator m_currentCollection;
-	size_t m_currentCollectionIndex = 0;
-
-
 	CGdiPlus m_gdiplus;
-	std::unique_ptr<CImageLoader> m_imageLoader;
-
-	bool m_needUpdate = true;
-	size_t m_pageSize = 2;
+	
+	lload::CImageCollection m_currentCollection;
+	
+	std::vector<std::wstring> m_files;
+	bool m_needUpdate = false;
+	size_t m_fileFramePosition = 0;
+	size_t m_scrollPosition = 0;
 };
 }

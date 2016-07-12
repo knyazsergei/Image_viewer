@@ -2,25 +2,24 @@
 #include <Gdiplus.h>
 #include <memory>
 #include <string>
+#include "IImage.h"
+
 
 namespace lload 
 {
-class CImage
+class CImage: public IImage
 {
 public:
-	CImage(const CImage & img);
-	CImage(CImage && img);
 	CImage(const std::wstring & fileName);
+	CImage(const CImage & img);
 
-	Gdiplus::Bitmap & GetBitmap() const;
-	std::wstring GetFileName() const;
-	void Resize(unsigned size);
+	void Resize(unsigned width, unsigned height) override final;
+	Gdiplus::Bitmap & GetBitmap() const override final;
 
-	~CImage();
+	~CImage() = default;
 private:
-	void Resize(unsigned width, unsigned height);
+	CImage(CImage && img);
 private:
-	std::unique_ptr<Gdiplus::Bitmap> m_image;
-	std::wstring m_imageName;
+	std::shared_ptr<Gdiplus::Bitmap> m_image;
 };
 }
