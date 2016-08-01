@@ -1,7 +1,6 @@
 #pragma once
 #include <Gdiplus.h>
 #include <memory>
-#include <string>
 #include "IImage.h"
 
 

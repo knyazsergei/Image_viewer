@@ -10,6 +10,6 @@ public:
 	virtual void Resize(unsigned width, unsigned height) {};
 	virtual Gdiplus::Bitmap & GetBitmap() const = 0;
 private:
-	Gdiplus::Bitmap *  image;
+	Gdiplus::Bitmap * image;
 };
 }

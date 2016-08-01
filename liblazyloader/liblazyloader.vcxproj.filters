@@ -19,6 +19,15 @@
     <Filter Include="Image\interface">
       <UniqueIdentifier>{01ac6f64-c60c-49c5-92d4-43f7d6791b5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Image\image">
+      <UniqueIdentifier>{11ac8b87-3012-4cab-9a9d-f8ba65c8fa78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collection">
+      <UniqueIdentifier>{b82951b9-3438-4ac8-9e31-d2dd3bdb416d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{9cbd3665-56d2-4e47-ad13-ec0eb75577dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,30 +39,27 @@
     <ClInclude Include="targetver.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ImageCollection.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="LLException.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="GdiPlus.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ImageController.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>Image</Filter>
-    </ClInclude>
     <ClInclude Include="IImage.h">
       <Filter>Image\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Image\image</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageCollection.h">
+      <Filter>Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageController.h">
+      <Filter>Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageCollection.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="LLException.cpp">
@@ -62,11 +68,14 @@
     <ClCompile Include="GdiPlus.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="ImageController.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>Image</Filter>
+      <Filter>Image\image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageCollection.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageController.cpp">
+      <Filter>Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

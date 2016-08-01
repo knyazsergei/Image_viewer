@@ -13,18 +13,16 @@ public:
 	size_t GetSize() const;
 	IImage const & GetImage(size_t i) const;
 
-	void AddFront(IImage && image);
+	void AddFront(std::unique_ptr<IImage> image);
 	void AddBack(IImage && image);
 
 	void PopBack();
+	void PopBack(size_t size);
 	void PopFront();
+	void PopFront(size_t size);
 
 	void Clear();
-
-	IImage & operator[](size_t n);
-	const IImage & operator[](size_t n)const;
-
 private:
-	std::deque<IImage> m_images;
+	std::deque<std::unique_ptr<IImage>> m_images;
 };
 }
